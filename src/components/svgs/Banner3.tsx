@@ -45,8 +45,6 @@ const Banner3 = () => {
         fill="#F0655F"
       ></path>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
         d="M0 112.501V41.244h50.707v71.257h-.951V101.25H.95v11.251H0zm49.7-51.61V42.197H.895v18.696H49.7zm0 1.008v18.696H.895V61.899H49.7zM.95 81.603v18.695h48.805V81.603H.95z"
         fill="#72A3CC"
       ></path>
@@ -162,8 +160,6 @@ const Banner3 = () => {
       <path fill="#31679E" d="M11.473 77.74h13.209v1.455H11.473z"></path>
       <path fill="#F0655F" d="M14.104 76.285h13.209v1.455H14.104z"></path>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
         d="M112.658 91.086a3.963 3.963 0 010-5.593 3.96 3.96 0 015.592 0c1.54 1.54 2.411 8.004 2.411 8.004s-6.429-.87-8.003-2.411zM112.658 101.963a3.963 3.963 0 010-5.593 3.96 3.96 0 015.592 0c1.54 1.54 2.411 8.004 2.411 8.004s-6.463-.87-8.003-2.411zM112.658 112.84a3.963 3.963 0 010-5.593 3.96 3.96 0 015.592 0c1.54 1.541 2.411 8.004 2.411 8.004s-6.463-.871-8.003-2.411z"
         fill="#31679E"
       ></path>
@@ -175,17 +171,10 @@ const Banner3 = () => {
         width="11"
         height="11"
       >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M120.887 89.611h9.47v9.506h-9.47v-9.506z"
-          fill="#fff"
-        ></path>
+        <path d="M120.887 89.611h9.47v9.506h-9.47v-9.506z" fill="#fff"></path>
       </mask>
       <g mask="url(#home-searcharea-people2_svg__a)">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
           d="M129.158 96.615a4.11 4.11 0 000-5.804 4.11 4.11 0 00-5.804 0c-1.598 1.598-2.467 8.306-2.467 8.306s6.673-.903 8.271-2.502z"
           fill="#31679E"
         ></path>
@@ -198,24 +187,15 @@ const Banner3 = () => {
         width="11"
         height="10"
       >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M120.887 100.454h9.47v9.506h-9.47v-9.506z"
-          fill="#fff"
-        ></path>
+        <path d="M120.887 100.454h9.47v9.506h-9.47v-9.506z" fill="#fff"></path>
       </mask>
       <g mask="url(#home-searcharea-people2_svg__b)">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
           d="M129.158 107.457a4.11 4.11 0 000-5.804 4.11 4.11 0 00-5.804 0c-1.598 1.599-2.467 8.307-2.467 8.307s6.673-.904 8.271-2.503z"
           fill="#31679E"
         ></path>
       </g>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
         d="M116.272 116.969c-1.552 1.85-2.194 4.363-1.789 6.771l1.789 10.403h9.35l1.789-10.403a8.446 8.446 0 00-1.789-6.771h-9.35z"
         fill="#2B435E"
       ></path>
@@ -227,24 +207,15 @@ const Banner3 = () => {
         width="10"
         height="13"
       >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M116.912 73.666h8.105v11.576h-8.105V73.666z"
-          fill="#fff"
-        ></path>
+        <path d="M116.912 73.666h8.105v11.576h-8.105V73.666z" fill="#fff"></path>
       </mask>
       <g mask="url(#home-searcharea-people2_svg__c)">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
           d="M116.912 77.72a4.06 4.06 0 014.052-4.054 4.06 4.06 0 014.053 4.053c0 2.233-4.053 7.523-4.053 7.523s-4.052-5.29-4.052-7.523z"
           fill="#31679E"
         ></path>
       </g>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
         d="M125.343 105.017l-4.06 4.18-.034-10.017 4.564-4.663-.47-.518-4.094 4.213V78.04h-.671v14.577l-4.026-4.11-.47.483 4.496 4.628v10.052l-4.026-4.145-.47.484 4.496 4.628.034 10.052-4.06-4.145-.47.483 4.53 4.629v1.313h.671v-6.771l4.53-4.697-.47-.484z"
         fill="#2B435E"
       ></path>
