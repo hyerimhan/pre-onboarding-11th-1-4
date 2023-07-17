@@ -5,6 +5,7 @@ const COLORS = {
   white: '#fff',
   darkGray: '#999',
   lightGray: '#A7AFB7',
+  hoverlightGray: '#F8F9FA',
 };
 
 export default COLORS;
