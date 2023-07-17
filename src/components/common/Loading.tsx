@@ -5,14 +5,21 @@ import { styled } from 'styled-components';
 
 const Loading = () => {
   return (
-    <LottieStyle>
-      <Lottie animationData={loading} loop={true} />
-    </LottieStyle>
+    <LoadingStyle>
+      <Lottie animationData={loading} loop={true} className="lottiePlayer" />
+    </LoadingStyle>
   );
 };
 
 export default Loading;
 
-const LottieStyle = styled.div`
-  width: 50px;
+export const LoadingStyle = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .lottiePlayer {
+    width: 50px;
+  }
 `;
