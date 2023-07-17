@@ -5,8 +5,7 @@ const instance = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-export const GETSEARCH = async (params: string) => {
+export const GETSEARCH = async (params?: string) => {
   const response = await instance(`/sick?q=${params}`);
-  console.log(response);
   return response;
 };
