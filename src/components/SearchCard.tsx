@@ -1,8 +1,8 @@
-import COLORS from 'constant/colors';
 import { ISearch } from 'interface/search';
 import React from 'react';
 import { styled } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
+import COLORS from 'constant/colors';
 
 interface Props {
   searchData: ISearch[];
@@ -10,45 +10,38 @@ interface Props {
 
 const SearchCard = ({ searchData }: Props) => {
   return (
-    <LatestSearchStyle>
-      <h3>최근 검색어</h3>
-      <ul>
-        {searchData.length > 0 ? (
-          searchData.map(result => (
-            <li key={result.sickCd}>
-              <BiSearch />
-              {result.sickNm}
-            </li>
-          ))
-        ) : (
-          <p>최근 검색어가 없습니다.</p>
-        )}
-      </ul>
-    </LatestSearchStyle>
+    <>
+      {searchData.length > 0 && (
+        <SearchCardListStyle>
+          <ul>
+            {searchData.map(result => (
+              <li key={result.sickCd}>
+                <BiSearch />
+                <p>{result.sickNm}</p>
+              </li>
+            ))}
+          </ul>
+        </SearchCardListStyle>
+      )}
+    </>
   );
 };
 
 export default SearchCard;
 
-const LatestSearchStyle = styled.div`
-  h3 {
-    color: ${COLORS.darkGray};
-    font-size: 12px;
-    margin-bottom: 15px;
-    padding: 0 30px;
-  }
-
+const SearchCardListStyle = styled.div`
+  margin-top: 10px;
   ul {
     li {
       padding: 10px 30px;
-      svg {
-        color: ${COLORS.lightGray};
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:hover {
+        background-color: ${COLORS.hoverlightGray};
+        cursor: pointer;
       }
-    }
-    p {
-      color: ${COLORS.lightGray};
-      font-weight: bold;
-      padding: 5px 30px;
     }
   }
 `;
