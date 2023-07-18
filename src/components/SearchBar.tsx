@@ -1,104 +1,71 @@
-import COLORS from 'constant/colors';
-import React, { useState, useCallback } from 'react';
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+import React from 'react';
 import { styled } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
-import { GETSEARCH } from 'api';
-import Loading from './common/Loading';
-import SearchCard from './SearchCard';
-import { ISearch } from 'interface/search';
+import COLORS from 'constant/colors';
 
-const SearchBar = () => {
-  const [searchData, setSearchData] = useState<ISearch[]>([]);
-  const [searchValue, setSearchValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+interface Props {
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  onAddKeyword: any;
+  isopen: any;
+}
 
-  const getSearch = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await GETSEARCH(searchValue);
-      console.log(response.data);
-      setSearchData(response.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+const SearchBar = ({ searchValue, setSearchValue, onAddKeyword, isopen }: Props) => {
+  const searchValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
 
-  const searchFormSubmit = () => {
-    getSearch();
-  };
-
-  const searchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const targetValue = e.target.value;
     setSearchValue(targetValue);
   };
 
+  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onAddKeyword(searchValue);
+    // setSearchValue('');
+  };
+
   return (
-    <SearchStyle>
-      <SearchBarStyle>
-        <form onSubmit={searchFormSubmit}>
-          <input type="text" onChange={searchInputChange} />
-          <button>
-            <BiSearch />
-          </button>
-        </form>
-      </SearchBarStyle>
-      <SearchCardStyle>
-        <SearchCard searchData={searchData} />
-        {isLoading && <Loading />}
-      </SearchCardStyle>
-    </SearchStyle>
+    <SearchBarStyle isopen={isopen.toString()}>
+      <form onSubmit={formSubmit}>
+        <InputStyle type="text" value={searchValue} onChange={searchValueChange} />
+        <ButtonStyle>
+          <BiSearch />
+        </ButtonStyle>
+      </form>
+    </SearchBarStyle>
   );
 };
 
 export default SearchBar;
 
-const SearchStyle = styled.div`
-  position: relative;
-  max-width: 490px;
-  margin: 0 auto;
-`;
-
-const SearchBarStyle = styled.div`
-  background-color: ${COLORS.white};
-  border-radius: 50px;
-  position: relative;
-  padding: 20px 10px 20px 24px;
-  font-size: 1.125rem;
-
-  input {
-    width: calc(100% - 52px);
-  }
-
-  button {
-    position: absolute;
-    width: 48px;
-    height: 48px;
-    border-radius: 100%;
-    background-color: ${COLORS.blue};
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: ${COLORS.white};
-    font-size: 25px;
-
-    svg {
-      width: auto;
-    }
-  }
-`;
-
-const SearchCardStyle = styled.div`
+export const SearchBarStyle = styled.div<{
+  isopen: any;
+}>`
   width: 100%;
   background-color: ${COLORS.white};
+  border: 2px solid ${({ isopen }) => (isopen ? COLORS.blue : COLORS.white)};
+  border-radius: 50px;
+  position: relative;
+`;
+
+const InputStyle = styled.input`
+  width: calc(100% - 56px);
+  padding: 20px 10px 20px 24px;
+`;
+
+const ButtonStyle = styled.button`
+  width: 48px;
+  height: 48px;
+  background-color: ${COLORS.blue};
+  color: ${COLORS.white};
+  border-radius: 50%;
   position: absolute;
-  right: 0;
-  top: 70px;
-  border-radius: 20px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  padding: 30px 0;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+
+  > svg {
+    font-size: 25px;
+  }
 `;
