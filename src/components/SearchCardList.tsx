@@ -14,12 +14,14 @@ const SearchCardList = ({ searchData }: Props) => {
     <>
       {searchData.length > 0 ? (
         <SearchCardListStyle>
-          {searchData.map(result => (
-            <LiStyle key={result.sickCd}>
-              <BiSearch />
-              <PStyle>{result.sickNm}</PStyle>
-            </LiStyle>
-          ))}
+          {searchData
+            .filter((v, i) => searchData.findIndex(prev => prev.sickNm === v.sickNm) === i)
+            .map(result => (
+              <LiStyle key={result.sickCd}>
+                <BiSearch />
+                <PStyle>{result.sickNm}</PStyle>
+              </LiStyle>
+            ))}
         </SearchCardListStyle>
       ) : (
         <EmpthListStyle>검색어 없음</EmpthListStyle>
