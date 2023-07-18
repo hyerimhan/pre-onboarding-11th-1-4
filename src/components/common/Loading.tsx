@@ -6,20 +6,16 @@ import { styled } from 'styled-components';
 const Loading = () => {
   return (
     <LoadingStyle>
-      <Lottie animationData={loading} loop={true} className="lottiePlayer" />
+      <Lottie animationData={loading} loop={true} style={{ width: '50px' }} />
     </LoadingStyle>
   );
 };
 
 export default Loading;
 
-export const LoadingStyle = styled.div`
+const LoadingStyle = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .lottiePlayer {
-    width: 50px;
-  }
 `;

@@ -7,21 +7,21 @@ import COLORS from 'constant/colors';
 const Nav = () => {
   return (
     <NavStyle>
-      <li>
+      <LiStyle>
         <Link to="https://clinicaltrialskorea.com/about"></Link>
-      </li>
-      <li>
+      </LiStyle>
+      <LiStyle>
         <Link to={URL.about}>소개</Link>
-      </li>
-      <li>
+      </LiStyle>
+      <LiStyle>
         <Link to={URL.question}>질문과 답변</Link>
-      </li>
-      <li>
+      </LiStyle>
+      <LiStyle>
         <Link to={URL.news}>소식받기</Link>
-      </li>
-      <li>
+      </LiStyle>
+      <LiStyle>
         <Link to="">제휴/문의</Link>
-      </li>
+      </LiStyle>
     </NavStyle>
   );
 };
@@ -30,14 +30,14 @@ export default Nav;
 
 const NavStyle = styled.ul`
   display: flex;
-  gap: 25px;
+  gap: 20px;
+`;
 
-  li {
-    a {
-      padding: 8px 16px;
-      font-weight: bold;
-      font-size: 16px;
-      color: ${COLORS.navText};
-    }
+const LiStyle = styled.li`
+  a {
+    padding: 8px 16px;
+    font-weight: bold;
+    font-size: 16px;
+    color: ${COLORS.navText};
   }
 `;

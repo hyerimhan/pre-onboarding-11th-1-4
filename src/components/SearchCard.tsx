@@ -13,14 +13,14 @@ const SearchCard = ({ searchData }: Props) => {
     <>
       {searchData.length > 0 && (
         <SearchCardListStyle>
-          <ul>
+          <UlStyle>
             {searchData.map(result => (
-              <li key={result.sickCd}>
+              <LiStyle key={result.sickCd}>
                 <BiSearch />
                 <p>{result.sickNm}</p>
-              </li>
+              </LiStyle>
             ))}
-          </ul>
+          </UlStyle>
         </SearchCardListStyle>
       )}
     </>
@@ -31,17 +31,18 @@ export default SearchCard;
 
 const SearchCardListStyle = styled.div`
   margin-top: 10px;
-  ul {
-    li {
-      padding: 10px 30px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+`;
 
-      &:hover {
-        background-color: ${COLORS.hoverlightGray};
-        cursor: pointer;
-      }
-    }
+const UlStyle = styled.ul``;
+
+const LiStyle = styled.li`
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    background-color: ${COLORS.hoverlightGray};
+    cursor: pointer;
   }
 `;

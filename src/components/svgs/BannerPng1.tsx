@@ -1,8 +1,10 @@
+import COMMONSTYLES from 'constant/commonStyle';
 import React from 'react';
+import { styled } from 'styled-components';
 
-const Banner1 = () => {
+const BannerPng1 = () => {
   return (
-    <svg viewBox="0 0 149 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <SvgStyle viewBox="0 0 149 128" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M130.822 127.893h7.858v-5.013h-4.726l-3.815 2.268c-1.31.716-.797 2.745.683 2.745z"
         fill="#2B435E"
@@ -119,8 +121,13 @@ const Banner1 = () => {
         d="M127.386 55.13l.223-.604 12.067 4.477-.224.604-12.066-4.477zM128.673 50.55h13.582v.716h-13.582z"
         fill="#F3F3F4"
       ></path>
-    </svg>
+    </SvgStyle>
   );
 };
 
-export default Banner1;
+export default BannerPng1;
+
+export const SvgStyle = styled.svg`
+  ${COMMONSTYLES.bannerSvg}
+  top: 200px;
+`;

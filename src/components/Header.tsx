@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <HeaderStyle>
       <Layout>
-        <Link to="/" className="logo">
+        <Link to="/">
           <Logo />
         </Link>
         <Nav />
@@ -30,9 +30,5 @@ const HeaderStyle = styled.header`
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-  }
-
-  .logo {
-    width: 140px;
   }
 `;
