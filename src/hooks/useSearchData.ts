@@ -1,4 +1,4 @@
-import { GETSEARCH } from 'api';
+import GETSEARCH from 'api';
 import { ISearch } from 'interface/search';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -14,9 +14,9 @@ const useSearchData = ({ searchValue }: Props) => {
     try {
       setIsLoading(true);
       if (searchValue) {
-        const response = await GETSEARCH(searchValue);
-        setSearchData(response.data);
+        const { data } = await GETSEARCH(searchValue);
         console.info('calling api');
+        setSearchData(data);
       }
     } catch (error) {
       console.log(error);

@@ -1,9 +1,9 @@
 const site = 'https://clinicaltrialskorea.com';
 
-const URL = {
+const NAVURL = {
   about: site + '/about',
   question: site + '/question',
   news: site + '/news',
 };
 
-export default URL;
+export default NAVURL;

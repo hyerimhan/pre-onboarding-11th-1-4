@@ -4,21 +4,21 @@ import { BiSearch } from 'react-icons/bi';
 import COLORS from 'constant/colors';
 import COMMONSTYLES from 'constant/commonStyle';
 import { ISearch } from 'interface/search';
-import Loading from './common/Loading';
-import SearchCardList from './SearchCardList';
-import useSearchData from 'hooks/useSearchData';
+import SearchCardList, { EmpthListStyle } from './SearchCardList';
+import Loading from 'components/common/Loading';
 
 interface Props {
-  searchValue: string;
+  searchData: ISearch[];
   keywords: ISearch[];
+  searchValue: string;
+  isLoading: boolean;
 }
 
-const SearchCard = ({ searchValue, keywords }: Props) => {
-  const { isLoading, searchData } = useSearchData({ searchValue });
-
+const SearchCard = ({ searchData, keywords, searchValue, isLoading }: Props) => {
   return (
     <SearchCardStyle>
       {searchValue ? (
+        // 검색어 입력중
         <SearchPreviewStyle>
           <BiSearch />
           <PStyle>{searchValue}</PStyle>
@@ -26,18 +26,20 @@ const SearchCard = ({ searchValue, keywords }: Props) => {
       ) : isLoading ? (
         <Loading />
       ) : (
+        // 검색어 입력중 X
         <>
           <H3Style>최근 검색어</H3Style>
           <SearchCardList searchData={keywords} />
         </>
       )}
-      {searchData.length > 0 && searchValue ? (
+      {searchValue && searchData.length > 0 ? (
+        // 검색어 입력중 & 데이터가 있을때
         <>
           <H3Style style={{ marginTop: '30px' }}>추천 검색어</H3Style>
           <SearchCardList searchData={searchData} />
         </>
       ) : isLoading ? (
-        <Loading />
+        <EmpthListStyle>추천 검색어 검색중...</EmpthListStyle>
       ) : null}
     </SearchCardStyle>
   );
@@ -69,7 +71,7 @@ const SearchPreviewStyle = styled.div`
 const PStyle = styled.p`
   width: 90%;
   font-weight: bold;
-  ${COMMONSTYLES.textEliipsis}
+  ${COMMONSTYLES.textEllipsis}
 `;
 
 const H3Style = styled.h3`
