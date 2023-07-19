@@ -14,8 +14,8 @@ const useSearchData = ({ searchValue }: Props) => {
     try {
       setIsLoading(true);
       if (searchValue) {
-        const response = await GETSEARCH(searchValue);
-        setSearchData(response.data);
+        const { data } = await GETSEARCH(searchValue);
+        setSearchData(data);
         console.info('calling api');
       }
     } catch (error) {
