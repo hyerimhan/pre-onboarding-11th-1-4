@@ -5,17 +5,16 @@ import COLORS from 'constant/colors';
 import COMMONSTYLES from 'constant/commonStyle';
 import { ISearch } from 'interface/search';
 import SearchCardList, { EmpthListStyle } from './SearchCardList';
-import useSearchData from 'hooks/useSearchData';
 import Loading from 'components/common/Loading';
 
 interface Props {
-  searchValue: string;
+  searchData: ISearch[];
   keywords: ISearch[];
+  searchValue: string;
+  isLoading: boolean;
 }
 
-const SearchCard = ({ searchValue, keywords }: Props) => {
-  const { isLoading, searchData } = useSearchData({ searchValue });
-
+const SearchCard = ({ searchData, keywords, searchValue, isLoading }: Props) => {
   return (
     <SearchCardStyle>
       {searchValue ? (

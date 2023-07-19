@@ -12,11 +12,16 @@ interface Props {
 }
 
 const SearchBar = ({ searchValue, setSearchValue, onAddKeyword, isopen }: Props) => {
-  const searchValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const searchValueChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const targetValue = e.target.value;
     setSearchValue(targetValue);
+    // if (searchValue.length > 0) {
+    //   const res = await searchApi.GETSEARCH(targetValue);
+    //   console.log(res);
+    //   setSearchData(res);
+    // }
   };
 
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
