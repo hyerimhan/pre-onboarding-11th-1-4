@@ -3,7 +3,7 @@ import Logo from './svgs/Logo';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Nav from './Nav';
-import Layout, { LayoutStyle } from './Layout';
+import Layout, { LayoutStyle } from './template/Layout';
 
 const Header = () => {
   return (

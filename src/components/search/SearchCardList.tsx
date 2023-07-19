@@ -55,7 +55,7 @@ const LiStyle = styled.li`
 
 const PStyle = styled.p`
   width: 90%;
-  ${COMMONSTYLES.textEliipsis}
+  ${COMMONSTYLES.textEllipsis}
 `;
 
 export const EmpthListStyle = styled.p`

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useStorage = () => {
+const useLocalStorage = () => {
   const [keywords, setKeywords] = useState(JSON.parse(localStorage.getItem('keywords') || '[]'));
 
   useEffect(() => {
@@ -18,4 +18,4 @@ const useStorage = () => {
   return { handleAddKeyword, keywords };
 };
 
-export default useStorage;
+export default useLocalStorage;

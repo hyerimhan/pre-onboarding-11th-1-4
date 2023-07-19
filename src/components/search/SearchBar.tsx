@@ -22,7 +22,7 @@ const SearchBar = ({ searchValue, setSearchValue, onAddKeyword, isopen }: Props)
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onAddKeyword(searchValue);
-    // setSearchValue('');
+    setSearchValue('');
   };
 
   return (
@@ -39,7 +39,7 @@ const SearchBar = ({ searchValue, setSearchValue, onAddKeyword, isopen }: Props)
 
 export default SearchBar;
 
-export const SearchBarStyle = styled.div<{
+const SearchBarStyle = styled.div<{
   isopen: any;
 }>`
   width: 100%;
