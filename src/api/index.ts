@@ -6,6 +6,6 @@ const instance = axios.create({
 });
 
 export const GETSEARCH = async (params?: string) => {
-  const response = await instance(`/sick?q=${params}`);
+  const response = await instance.get(`/sick?q=${params}`);
   return response;
 };
