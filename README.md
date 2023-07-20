@@ -197,7 +197,7 @@ export const GETSEARCH = async (searchValue?: string) => {
 ```
 
 - 최근 검색어 localStorage 저장, 불러오기
-  - `useLocalStorage` 커스텀 훅을 사용하여 사용했던 검색어를 엔터키를 누르면 localStorage에 저장해놓고, 사용자가 아무런 입력이 없을때 '최근 검색어'로 검색했던 검색어가 중복없이 보여집니다.
+  - `useLocalStorage` 커스텀 훅을 사용하여 사용했던 검색어를 `ENTER`를 누르면 localStorage에 저장해놓고, 사용자가 아무런 입력이 없을때 '최근 검색어'로 검색했던 검색어가 중복없이 출력됩니다.
 
 ```Javascript
 // hooks/useLocalStorage.ts
@@ -334,7 +334,8 @@ export default useDebounce;
 
 ### 4. 키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
-- 키보드 방향키 `↑`, `↓`, `ENTER`를 이용하여하여 추천 검색어 목록을 이동할 수 있습니다.
+- 키보드 방향키 `↑` or `↓`, `ENTER`를 이용하여하여 추천 검색어 목록을 이동할 수 있습니다.
+- 각각의 조건문을 iterate하며 control flow를 결정하는 if문이 아닌, if문과 동일하게 작동하지만 if문보다 빠르고 하나의 변수를 입력받아 그 변수의 값에 따라 다른 흐름으로 이동할 수 있는 switch문을 대체 사용하여 코드를 최적화하고 가독성을 높였습니다.
 
 ```Javascript
 // hooks/useDebounce.ts
