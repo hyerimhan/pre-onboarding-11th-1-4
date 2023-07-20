@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import COLORS from 'constant/colors';
 import { ISearch } from 'interface/search';
 import React from 'react';
@@ -7,27 +8,23 @@ import COMMONSTYLES from 'constant/commonStyle';
 
 interface Props {
   searchData: ISearch[];
-  focusIndex: number;
-  onClick: React.MouseEventHandler<HTMLLIElement>;
-  setFocusIndex: React.Dispatch<React.SetStateAction<number>>;
+  ulRef?: React.RefObject<HTMLUListElement>;
+  currentIndex?: number;
 }
 
-const SearchCardItem = ({ searchData, focusIndex, onClick, setFocusIndex }: Props) => {
+const SearchCardItem = ({ searchData, ulRef, currentIndex }: Props) => {
   return (
     <>
       {searchData.length > 0 ? (
-        <SearchCardListStyle>
+        <SearchCardListStyle ref={ulRef}>
           {searchData
             .filter((v, i) => searchData.findIndex(prev => prev.sickNm === v.sickNm) === i)
             .map((result, index) => (
-              <LiStyle
-                key={result.sickCd}
-                onClick={onClick}
-                onMouseOver={() => setFocusIndex(-1)}
-                isfocus={(focusIndex === index).toString()}
-              >
-                <BiSearch />
-                <PStyle>{result.sickNm}</PStyle>
+              <LiStyle key={result.sickCd} isfocus={(currentIndex === index).toString()}>
+                <LinkTagStyle href="">
+                  <BiSearch />
+                  <PStyle>{result.sickNm}</PStyle>
+                </LinkTagStyle>
               </LiStyle>
             ))}
         </SearchCardListStyle>
@@ -45,24 +42,26 @@ const SearchCardListStyle = styled.ul`
 `;
 
 const LiStyle = styled.li<{
-  onClick: React.MouseEventHandler<HTMLLIElement>;
   isfocus: string;
 }>`
+  background-color: ${({ isfocus }) => (isfocus === 'true' ? COLORS.hoverlightGray : '')};
+`;
+
+const LinkTagStyle = styled.a`
   padding: 10px 30px;
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: ${({ isfocus }) => (isfocus === 'true' ? COLORS.hoverlightGray : '')};
+
+  > svg {
+    color: ${COLORS.lightGray};
+    font-size: 20px;
+  }
 
   &:hover,
   &:focus {
     background-color: ${COLORS.hoverlightGray};
     cursor: pointer;
-  }
-
-  > svg {
-    color: ${COLORS.lightGray};
-    font-size: 20px;
   }
 `;
 

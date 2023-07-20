@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import SearchBar from './SearchBar';
 import useCardOpen from 'hooks/useCardOpen';
@@ -10,37 +10,24 @@ import useDebounce from 'hooks/useDebounce';
 import useKeyFocus from 'hooks/useKeyFocus';
 
 const Search = () => {
-  const [searchValue, setSearchValue] = useState('');
   const [searchData, setSearchData] = useState<ISearch[]>([]);
+  const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isOnFocus, setIsOnFocus] = useState(false);
-
-  const wordBoxRef = useRef<HTMLDivElement>(null);
-  const debounce = useDebounce(searchValue);
 
   const { handleAddKeyword, keywords } = useLocalStorage();
   const { toggleOpen, cardOpen } = useCardOpen();
-  const { focusIndex, handleKeyDown, setFocusIndex } = useKeyFocus(
-    searchData,
-    isOnFocus,
-    setIsOnFocus,
+  const { currentIndex, ulRef, handleKeyPress, setCurrentIndex } = useKeyFocus(
+    searchData.length,
     setSearchValue,
   );
 
-  const handleSearch = (text: string) => {
-    if (!text) return;
-    handleAddKeyword(text);
-
-    setIsOnFocus(false);
-    if (wordBoxRef.current) wordBoxRef.current.className = 'hidden';
-  };
+  const debounce = useDebounce(searchValue);
 
   useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
         const response = await GETSEARCH(debounce.trim().toLowerCase());
-        setFocusIndex(-1);
         if (searchValue) setSearchData(response.slice(0, 7));
       } catch (error) {
         console.log(error);
@@ -48,35 +35,27 @@ const Search = () => {
         setIsLoading(false);
       }
     })();
-  }, [debounce, setFocusIndex]);
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]);
+  }, [debounce]);
 
   return (
     <SearchAreaStyle>
-      <div onClick={toggleOpen}>
-        <SearchBar
-          searchValue={searchValue}
-          isopen={cardOpen || searchValue}
-          setSearchValue={setSearchValue}
-          onAddKeyword={handleSearch}
-        />
-      </div>
+      <SearchBar
+        searchValue={searchValue}
+        isopen={cardOpen || searchValue}
+        setSearchValue={setSearchValue}
+        onAddKeyword={handleAddKeyword}
+        onClick={toggleOpen}
+        onKeyDown={handleKeyPress}
+        setCurrentIndex={setCurrentIndex}
+      />
       {(cardOpen || searchValue) && (
         <SearchCard
           searchData={searchData}
           keywords={keywords}
           searchValue={searchValue}
           isLoading={isLoading}
-          focusIndex={focusIndex}
-          handleAddKeyword={handleSearch}
-          setSearchValue={setSearchValue}
-          setFocusIndex={setFocusIndex}
+          ulRef={ulRef}
+          currentIndex={currentIndex}
         />
       )}
     </SearchAreaStyle>

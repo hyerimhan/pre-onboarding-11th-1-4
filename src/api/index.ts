@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import axios, { AxiosError } from 'axios';
 import { getCacheStorage, setCacheStorage } from 'utils/cacheStorage';
 
