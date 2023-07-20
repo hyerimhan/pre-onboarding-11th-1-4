@@ -4,7 +4,7 @@ import { BiSearch } from 'react-icons/bi';
 import COLORS from 'constant/colors';
 import COMMONSTYLES from 'constant/commonStyle';
 import { ISearch } from 'interface/search';
-import SearchCardList, { EmptyListStyle } from './SearchCardList';
+import SearchCardItem, { EmptyListStyle } from './SearchCardItem';
 import Loading from 'components/common/Loading';
 
 interface Props {
@@ -38,14 +38,14 @@ const SearchCard = ({
         // 검색어 입력중 X
         <>
           <H3Style>최근 검색어</H3Style>
-          <SearchCardList searchData={keywords} />
+          <SearchCardItem searchData={keywords} />
         </>
       )}
       {searchValue && searchData.length > 0 ? (
         // 검색어 입력중 & 데이터가 있을때
         <>
           <H3Style style={{ marginTop: '30px' }}>추천 검색어</H3Style>
-          <SearchCardList searchData={searchData} ulRef={ulRef} currentIndex={currentIndex} />
+          <SearchCardItem searchData={searchData} ulRef={ulRef} currentIndex={currentIndex} />
         </>
       ) : isLoading ? (
         <EmptyListStyle>추천 검색어 검색중...</EmptyListStyle>

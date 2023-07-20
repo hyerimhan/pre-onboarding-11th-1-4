@@ -21,8 +21,10 @@ const SearchCardItem = ({ searchData, ulRef, currentIndex }: Props) => {
             .filter((v, i) => searchData.findIndex(prev => prev.sickNm === v.sickNm) === i)
             .map((result, index) => (
               <LiStyle key={result.sickCd} isfocus={(currentIndex === index).toString()}>
-                <BiSearch />
-                <PStyle>{result.sickNm}</PStyle>
+                <LinkTagStyle href="">
+                  <BiSearch />
+                  <PStyle>{result.sickNm}</PStyle>
+                </LinkTagStyle>
               </LiStyle>
             ))}
         </SearchCardListStyle>
@@ -42,21 +44,24 @@ const SearchCardListStyle = styled.ul`
 const LiStyle = styled.li<{
   isfocus: string;
 }>`
+  background-color: ${({ isfocus }) => (isfocus === 'true' ? COLORS.hoverlightGray : '')};
+`;
+
+const LinkTagStyle = styled.a`
   padding: 10px 30px;
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: ${({ isfocus }) => (isfocus === 'true' ? COLORS.hoverlightGray : '')};
+
+  > svg {
+    color: ${COLORS.lightGray};
+    font-size: 20px;
+  }
 
   &:hover,
   &:focus {
     background-color: ${COLORS.hoverlightGray};
     cursor: pointer;
-  }
-
-  > svg {
-    color: ${COLORS.lightGray};
-    font-size: 20px;
   }
 `;
 
