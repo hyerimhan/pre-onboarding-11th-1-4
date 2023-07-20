@@ -1,41 +1,38 @@
-import axios from 'axios';
-// import axios, { AxiosError } from 'axios';
-// import { getCacheStorage, setCacheStorage } from 'utils/cacheStorage';
+// import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { getCacheStorage, setCacheStorage } from 'utils/cacheStorage';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+  },
 });
 
-export const GETSEARCH = async (params?: string) => {
-  const response = await instance.get(`/sick?q=${params}`);
-  return response;
+export const GETSEARCH = async (searchValue?: string) => {
+  const cacheName = `cache_${searchValue}`;
+  const URL = `${process.env.REACT_APP_BASE_URL}/sick?q=${searchValue}`;
+
+  if (searchValue) {
+    try {
+      const cachedData = await getCacheStorage(cacheName, URL);
+      if (cachedData) {
+        return cachedData;
+      }
+      const { data } = await instance.get('/sick', {
+        params: { q: searchValue },
+      });
+      await setCacheStorage(cacheName, URL, data);
+      console.info('calling api');
+      return data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return error.response;
+      }
+      console.error('Error while searching for keyword:', error);
+      return { data: [] };
+    }
+  } else [];
 };
-
-// interface ErrorResponse {
-//   message: string;
-// }
-
-// export const GETSEARCH = async (searchValue?: string) => {
-//   if (searchValue === '') [];
-//   const cacheName = `cache_${searchValue}`;
-//   const url = `${process.env.REACT_APP_BASE_URL}/sick?q=${searchValue}`;
-
-//   const cachedData = await getCacheStorage(cacheName, url);
-
-//   if (cachedData) await cachedData.json();
-
-//   try {
-//     const { data } = await instance.get('/sick', {
-//       params: { q: searchValue },
-//     });
-//     console.info('calling api');
-//     setCacheStorage(cacheName, url, data);
-//     return data;
-//   } catch (error) {
-//     const axiosError = error as AxiosError<ErrorResponse>;
-//     alert(axiosError.response?.data.message || '알 수 없는 오류가 발생했습니다.');
-//     return [];
-//   }
-// };
 
 export default GETSEARCH;

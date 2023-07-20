@@ -1,4 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
+/* eslint-disable  no-unused-vars */
 import React from 'react';
 import { styled } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
@@ -7,33 +8,26 @@ import COLORS from 'constant/colors';
 interface Props {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  onAddKeyword: any;
+  onAddKeyword: (text: string) => void;
   isopen: any;
+  // onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const SearchBar = ({ searchValue, setSearchValue, onAddKeyword, isopen }: Props) => {
-  const searchValueChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    const targetValue = e.target.value;
-    setSearchValue(targetValue);
-    // if (searchValue.length > 0) {
-    //   const res = await searchApi.GETSEARCH(targetValue);
-    //   console.log(res);
-    //   setSearchData(res);
-    // }
-  };
-
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onAddKeyword(searchValue);
     setSearchValue('');
   };
 
+  const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
+    setSearchValue(e.currentTarget.value);
+  };
+
   return (
     <SearchBarStyle isopen={isopen.toString()}>
       <form onSubmit={formSubmit}>
-        <InputStyle type="text" value={searchValue} onChange={searchValueChange} />
+        <InputStyle type="text" value={searchValue} onChange={handleInput} />
         <ButtonStyle>
           <BiSearch />
         </ButtonStyle>
@@ -54,7 +48,9 @@ const SearchBarStyle = styled.div<{
   position: relative;
 `;
 
-const InputStyle = styled.input`
+const InputStyle = styled.input<{
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}>`
   width: calc(100% - 56px);
   padding: 20px 10px 20px 24px;
 `;
