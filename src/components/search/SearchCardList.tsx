@@ -7,42 +7,55 @@ import COMMONSTYLES from 'constant/commonStyle';
 
 interface Props {
   searchData: ISearch[];
+  focusIndex: number;
+  onClick: React.MouseEventHandler<HTMLLIElement>;
+  setFocusIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SearchCardList = ({ searchData }: Props) => {
+const SearchCardItem = ({ searchData, focusIndex, onClick, setFocusIndex }: Props) => {
   return (
     <>
       {searchData.length > 0 ? (
         <SearchCardListStyle>
           {searchData
             .filter((v, i) => searchData.findIndex(prev => prev.sickNm === v.sickNm) === i)
-            .map(result => (
-              <LiStyle key={result.sickCd}>
+            .map((result, index) => (
+              <LiStyle
+                key={result.sickCd}
+                onClick={onClick}
+                onMouseOver={() => setFocusIndex(-1)}
+                isfocus={(focusIndex === index).toString()}
+              >
                 <BiSearch />
                 <PStyle>{result.sickNm}</PStyle>
               </LiStyle>
             ))}
         </SearchCardListStyle>
       ) : (
-        <EmpthListStyle>검색어 없음</EmpthListStyle>
+        <EmptyListStyle>검색어 없음</EmptyListStyle>
       )}
     </>
   );
 };
 
-export default SearchCardList;
+export default SearchCardItem;
 
 const SearchCardListStyle = styled.ul`
   margin-top: 10px;
 `;
 
-const LiStyle = styled.li`
+const LiStyle = styled.li<{
+  onClick: React.MouseEventHandler<HTMLLIElement>;
+  isfocus: string;
+}>`
   padding: 10px 30px;
   display: flex;
   align-items: center;
   gap: 10px;
+  background-color: ${({ isfocus }) => (isfocus === 'true' ? COLORS.hoverlightGray : '')};
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${COLORS.hoverlightGray};
     cursor: pointer;
   }
@@ -51,6 +64,11 @@ const LiStyle = styled.li`
     color: ${COLORS.lightGray};
     font-size: 20px;
   }
+`;
+
+export const EmptyListStyle = styled.p`
+  padding: 10px 30px 0;
+  color: ${COLORS.lightGray};
 `;
 
 const PStyle = styled.p`

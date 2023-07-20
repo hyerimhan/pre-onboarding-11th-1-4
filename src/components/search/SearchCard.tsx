@@ -1,10 +1,11 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { styled } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
 import COLORS from 'constant/colors';
 import COMMONSTYLES from 'constant/commonStyle';
 import { ISearch } from 'interface/search';
-import SearchCardList, { EmpthListStyle } from './SearchCardList';
+import SearchCardList, { EmptyListStyle } from './SearchCardList';
 import Loading from 'components/common/Loading';
 
 interface Props {
@@ -12,9 +13,26 @@ interface Props {
   keywords: ISearch[];
   searchValue: string;
   isLoading: boolean;
+  focusIndex: number;
+  handleAddKeyword: any;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  setFocusIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SearchCard = ({ searchData, keywords, searchValue, isLoading }: Props) => {
+const SearchCard = ({
+  searchData,
+  keywords,
+  searchValue,
+  isLoading,
+  focusIndex,
+  handleAddKeyword,
+  setSearchValue,
+  setFocusIndex,
+}: Props) => {
+  const handleClickWord = (searchValue: string) => {
+    setSearchValue(searchValue);
+    handleAddKeyword(searchValue);
+  };
   return (
     <SearchCardStyle>
       {searchValue ? (
@@ -29,17 +47,27 @@ const SearchCard = ({ searchData, keywords, searchValue, isLoading }: Props) => 
         // 검색어 입력중 X
         <>
           <H3Style>최근 검색어</H3Style>
-          <SearchCardList searchData={keywords} />
+          <SearchCardList
+            searchData={keywords}
+            onClick={() => handleClickWord(searchValue)}
+            focusIndex={focusIndex}
+            setFocusIndex={setFocusIndex}
+          />
         </>
       )}
       {searchValue && searchData.length > 0 ? (
         // 검색어 입력중 & 데이터가 있을때
         <>
           <H3Style style={{ marginTop: '30px' }}>추천 검색어</H3Style>
-          <SearchCardList searchData={searchData} />
+          <SearchCardList
+            searchData={searchData}
+            onClick={() => handleClickWord(searchValue)}
+            focusIndex={focusIndex}
+            setFocusIndex={setFocusIndex}
+          />
         </>
       ) : isLoading ? (
-        <EmpthListStyle>추천 검색어 검색중...</EmpthListStyle>
+        <EmptyListStyle>추천 검색어 검색중...</EmptyListStyle>
       ) : null}
     </SearchCardStyle>
   );
