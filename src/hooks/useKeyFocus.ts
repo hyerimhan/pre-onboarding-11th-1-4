@@ -1,6 +1,11 @@
-import React from 'react';
-import { ISearch } from 'interface/search';
-import { useCallback, useState } from 'react';
+import React, { useState, useRef, KeyboardEvent } from 'react';
+
+interface Props {
+  currentIndex: number;
+  ulRef: React.RefObject<HTMLUListElement>;
+  handleKeyPress: React.KeyboardEventHandler<HTMLInputElement>;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const KEY_NAME = {
   arrowDown: 'ArrowDown',
@@ -9,36 +14,31 @@ const KEY_NAME = {
 };
 
 const useKeyFocus = (
-  data: ISearch[],
-  isOnFocus: boolean,
-  setIsOnFocus: React.Dispatch<React.SetStateAction<boolean>>,
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>,
-) => {
-  const [focusIndex, setFocusIndex] = useState<number>(-1);
+  dataLength: number,
+  setKeyword: React.Dispatch<React.SetStateAction<string>>,
+): Props => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const ulRef = useRef<HTMLUListElement>(null);
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (!isOnFocus) return;
-      if (event.isComposing) return;
-
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (dataLength > 0) {
       switch (event.key) {
         case KEY_NAME.arrowDown:
-          event.preventDefault();
-          setFocusIndex(currentIndex => Math.min(currentIndex + 1, data.length - 1));
-          return;
+          setCurrentIndex(currentIndex + 1);
+          if (ulRef.current?.childElementCount === currentIndex + 1) setCurrentIndex(0);
+          break;
         case KEY_NAME.arrowUp:
-          event.preventDefault();
-          setFocusIndex(currentIndex => Math.max(-1, currentIndex - 1));
-          return;
+          setCurrentIndex(currentIndex - 1);
+          if (currentIndex <= 0) setCurrentIndex(ulRef.current!.childElementCount - 1);
+          break;
         case KEY_NAME.enter:
-          setSearchValue(data[focusIndex].sickNm);
-          setIsOnFocus(false);
+          setCurrentIndex(-1);
+          setKeyword(ulRef.current?.children[currentIndex].textContent?.substring(2) as string);
+          break;
       }
-    },
-    [data, focusIndex, isOnFocus, setSearchValue, setIsOnFocus],
-  );
-
-  return { focusIndex, handleKeyDown, setFocusIndex };
+    }
+  };
+  return { currentIndex, ulRef, handleKeyPress, setCurrentIndex };
 };
 
 export default useKeyFocus;

@@ -7,13 +7,23 @@ import COLORS from 'constant/colors';
 
 interface Props {
   searchValue: string;
+  isopen: any;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   onAddKeyword: (text: string) => void;
-  isopen: any;
-  // onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SearchBar = ({ searchValue, setSearchValue, onAddKeyword, isopen }: Props) => {
+const SearchBar = ({
+  searchValue,
+  setSearchValue,
+  onAddKeyword,
+  isopen,
+  onClick,
+  onKeyDown,
+  setCurrentIndex,
+}: Props) => {
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onAddKeyword(searchValue);
@@ -22,16 +32,23 @@ const SearchBar = ({ searchValue, setSearchValue, onAddKeyword, isopen }: Props)
 
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value);
+    setCurrentIndex(-1);
   };
 
   return (
-    <SearchBarStyle isopen={isopen.toString()}>
+    <SearchBarStyle isopen={isopen.toString()} onClick={onClick}>
       <form onSubmit={formSubmit}>
-        <InputStyle type="text" value={searchValue} onChange={handleInput} />
+        <InputStyle type="text" value={searchValue} onChange={handleInput} onKeyDown={onKeyDown} />
         <ButtonStyle>
           <BiSearch />
         </ButtonStyle>
       </form>
+      {!isopen && (
+        <PlaceHolderStyle>
+          <BiSearch />
+          <PStyle>질환명을 입력해주세요.</PStyle>
+        </PlaceHolderStyle>
+      )}
     </SearchBarStyle>
   );
 };
@@ -53,6 +70,8 @@ const InputStyle = styled.input<{
 }>`
   width: calc(100% - 56px);
   padding: 20px 10px 20px 24px;
+  position: relative;
+  z-index: 1;
 `;
 
 const ButtonStyle = styled.button`
@@ -69,4 +88,23 @@ const ButtonStyle = styled.button`
   > svg {
     font-size: 25px;
   }
+`;
+
+const PlaceHolderStyle = styled.div`
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  > svg {
+    color: ${COLORS.lightGray};
+    font-size: 20px;
+  }
+`;
+
+const PStyle = styled.p`
+  color: ${COLORS.lightGray};
 `;

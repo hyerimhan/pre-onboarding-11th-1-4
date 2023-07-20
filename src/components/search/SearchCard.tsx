@@ -1,4 +1,3 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { styled } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
@@ -13,10 +12,8 @@ interface Props {
   keywords: ISearch[];
   searchValue: string;
   isLoading: boolean;
-  focusIndex: number;
-  handleAddKeyword: any;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-  setFocusIndex: React.Dispatch<React.SetStateAction<number>>;
+  ulRef: React.RefObject<HTMLUListElement>;
+  currentIndex: number;
 }
 
 const SearchCard = ({
@@ -24,15 +21,9 @@ const SearchCard = ({
   keywords,
   searchValue,
   isLoading,
-  focusIndex,
-  handleAddKeyword,
-  setSearchValue,
-  setFocusIndex,
+  ulRef,
+  currentIndex,
 }: Props) => {
-  const handleClickWord = (searchValue: string) => {
-    setSearchValue(searchValue);
-    handleAddKeyword(searchValue);
-  };
   return (
     <SearchCardStyle>
       {searchValue ? (
@@ -47,24 +38,14 @@ const SearchCard = ({
         // 검색어 입력중 X
         <>
           <H3Style>최근 검색어</H3Style>
-          <SearchCardList
-            searchData={keywords}
-            onClick={() => handleClickWord(searchValue)}
-            focusIndex={focusIndex}
-            setFocusIndex={setFocusIndex}
-          />
+          <SearchCardList searchData={keywords} />
         </>
       )}
       {searchValue && searchData.length > 0 ? (
         // 검색어 입력중 & 데이터가 있을때
         <>
           <H3Style style={{ marginTop: '30px' }}>추천 검색어</H3Style>
-          <SearchCardList
-            searchData={searchData}
-            onClick={() => handleClickWord(searchValue)}
-            focusIndex={focusIndex}
-            setFocusIndex={setFocusIndex}
-          />
+          <SearchCardList searchData={searchData} ulRef={ulRef} currentIndex={currentIndex} />
         </>
       ) : isLoading ? (
         <EmptyListStyle>추천 검색어 검색중...</EmptyListStyle>
