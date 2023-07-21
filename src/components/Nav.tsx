@@ -8,9 +8,6 @@ const Nav = () => {
   return (
     <NavStyle>
       <LiStyle>
-        <Link to="https://clinicaltrialskorea.com/about"></Link>
-      </LiStyle>
-      <LiStyle>
         <Link to={NAVURL.about}>소개</Link>
       </LiStyle>
       <LiStyle>

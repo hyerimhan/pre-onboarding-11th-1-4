@@ -45,10 +45,12 @@ const SearchCard = ({
         // 검색어 입력중 & 데이터가 있을때
         <>
           <H3Style style={{ marginTop: '30px' }}>추천 검색어</H3Style>
-          <SearchCardItem searchData={searchData} ulRef={ulRef} currentIndex={currentIndex} />
+          {isLoading ? (
+            <EmptyListStyle>추천 검색어 검색중...</EmptyListStyle>
+          ) : (
+            <SearchCardItem searchData={searchData} ulRef={ulRef} currentIndex={currentIndex} />
+          )}
         </>
-      ) : isLoading ? (
-        <EmptyListStyle>추천 검색어 검색중...</EmptyListStyle>
       ) : null}
     </SearchCardStyle>
   );
